@@ -14,6 +14,7 @@
 #define MAX_LENGTH 1024
 #define DELIMS " \t\r\n"
 
+
 int main(int argc, char *argv[]) {
   char *cmd;
   char line[MAX_LENGTH];
@@ -56,6 +57,22 @@ printf("Dont believe the fish!\n");
         else {
           FILE *fp = fopen(arg, "ab+");
           fclose(fp);
+        }
+
+      // Print to terminal
+      } else if (strcmp(cmd, "echo") == 0) {
+        char *arg;
+        arg = strtok(0, DELIMS);
+
+        if (!arg) fprintf(stderr, "specify a string.\n");
+        else {
+          while (arg != NULL) {
+            if (strcmp(arg, "<") != 0) {
+              printf(arg);
+              fprintf(stdout, "\n");
+              arg = strtok(NULL, DELIMS);
+            }
+          }
         }
 
       // Lying fish
